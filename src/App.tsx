@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from "styled-components";
-import {Character} from "./interfaces/Characters.ts";
-import Anime from "./components/Anime.tsx"
+import {Artwork} from "./interfaces/Paintings.ts";
+import Art from "./components/Art.tsx"
 
 
 const ParentDiv = styled.div`
@@ -13,14 +13,15 @@ const ParentDiv = styled.div`
 
 export default function App(){
   //state hook to store data
-  const [data, setData] = useState<Character[]>([]);
+  // const[numArtWorks,setNumArtWorks]= useState(10);
+  const [data, setData] = useState<Artwork[]>([]);
 
   //effect hook for error handling and re-rendering
   useEffect(()=>{
-    async function fetchData(): Promise<void>{
-      const rawData = await fetch("https://cdn.animenewsnetwork.com/encyclopedia/api.xml?title=4658");
-      const {results} : {results: Character[]} = await rawData.json();
-      setData(results);
+    async function fetchData(): Promise<void> {
+      const rawData = await fetch("https://api.artic.edu/api/v1/artworks/search?q=cats");
+      const {data} : {data: Artwork[]} = await rawData.json();
+      setData(data);
     }
     fetchData()
       .then(() => console.log("Data fetched successfully."))
@@ -30,7 +31,20 @@ export default function App(){
 
   return (
     <ParentDiv>
-      <Anime data={data}/>
+      
+      <div>
+            {/* <input 
+            type={'number'} 
+            placeholder={'Number of Artworks'}
+            value={numArtWorks}
+            onChange={(e)=>setNumArtWorks(Number(e.target.value))}
+            />
+            <p>Number of ArtWorks: {numArtWorks}</p> */}
+            <div>
+                <Art data={data}/>
+
+            </div>
+        </div>
     </ParentDiv>
   )
 
