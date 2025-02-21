@@ -7,7 +7,7 @@ import Art from "./components/Art.tsx"
 const ParentDiv = styled.div`
   width: 80vw;
   margin: auto;
-  border: 5px darkgoldenrod solid;
+  border: 5px #ff3838 solid;
 `;
 
 
@@ -33,16 +33,8 @@ export default function App(){
     <ParentDiv>
       
       <div>
-            {/* <input 
-            type={'number'} 
-            placeholder={'Number of Artworks'}
-            value={numArtWorks}
-            onChange={(e)=>setNumArtWorks(Number(e.target.value))}
-            />
-            <p>Number of ArtWorks: {numArtWorks}</p> */}
             <div>
                 <Art data={data}/>
-
             </div>
         </div>
     </ParentDiv>

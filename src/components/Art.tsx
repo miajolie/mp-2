@@ -5,7 +5,7 @@ const AllCharsDiv = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
-    background-color: bisque;
+    background-color: #ffe0fc;
 `;
 
 const SingleCharDiv=styled.div`
@@ -31,10 +31,8 @@ export default function Art(props : { data:Artwork[] } ){
                     
                     <SingleCharDiv key={char.id}>
                         <h3>{char.title}</h3>
-                        
                         <img src= {char.thumbnail.lqip} alt={char.thumbnail.alt_text}/>
-                        <p>{char.place_of_origin}</p>
-                        <p>{char.medium_display}</p>
+                        <p>{char._score}</p>
                     </SingleCharDiv>
                 )
             }
