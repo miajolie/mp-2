@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import styled from "styled-components";
+import {Character} from "./interfaces/Charcters.ts";
+import Anime from "./components/Anime.tsx"
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const ParentDiv = styled.div`
+  width: 80vw;
+  margin: auto;
+  border: 5px darkgoldenrod solid;
+`;
+
+
+export default function App(){
+  //state hook to store data
+  const [data, setData] = useState<Character[]>([]);
+
+  //effect hook for error handling and re-rendering
+  useEffect(()=>{
+    async function fetchData(): Promise<void>{
+      const rawData = await fetch("https://cdn.animenewsnetwork.com/encyclopedia/api.xml?title=4658");
+      const {results} : {results: Character[]} = await rawData.json();
+      setData(results);
+    }
+    fetchData()
+      .then(() => console.log("Data fetched successfully."))
+      .catch((e:Error) => console.log ("There was an error: " + e));
+
+  }, [data.length]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ParentDiv>
+      <Anime data={data}/>
+    </ParentDiv>
   )
-}
 
-export default App
+}
