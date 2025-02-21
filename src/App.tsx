@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from "styled-components";
-import {Character} from "./interfaces/Charcters.ts";
+import {Character} from "./interfaces/Characters.ts";
 import Anime from "./components/Anime.tsx"
 
 
